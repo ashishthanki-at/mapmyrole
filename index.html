@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MapMyRole • Is Your Job Safe From AI?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #07111F;
+      --card: #0D1B2D;
+      --border: #1A2F4A;
+      --text: #F3F7FB;
+      --muted: #8CA0B8;
+      --teal: #00A8B5;
+      --mint: #00D1A7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(0,168,181,0.08), transparent 25%),
+        radial-gradient(circle at 80% 0%, rgba(0,209,167,0.06), transparent 30%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--mint), var(--teal));
+      background-size: 200% 100%;
+      animation: shimmer 4s linear infinite;
+      z-index: 999;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    nav {
+      max-width: 1120px;
+      margin: auto;
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(0,168,181,0.22), rgba(0,209,167,0.12));
+      border: 1px solid rgba(0,209,167,0.22);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .logo-icon::before {
+      content: '↗';
+      font-size: 18px;
+      color: var(--mint);
+      transform: translateY(-1px);
+      font-weight: 700;
+    }
+
+    .logo-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo span {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .logo-text {
+      opacity: 1;
+      color: var(--text);
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero {
+      max-width: 980px;
+      margin: auto;
+      padding: 90px 32px 80px;
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(0,209,167,0.25);
+      background: rgba(0,209,167,0.08);
+      color: var(--mint);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 32px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--mint);
+      border-radius: 50%;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 7vw, 74px);
+      line-height: 1.02;
+      letter-spacing: -3px;
+      margin-bottom: 26px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--teal);
+    }
+
+    .subhead {
+      max-width: 760px;
+      margin: auto;
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.75;
+      margin-bottom: 44px;
+      font-weight: 300;
+    }
+
+    .form-wrap {
+      max-width: 320px;
+      margin: auto;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: center;
+    }
+
+    
+
+    
+
+    .hero-button {
+      width: 100%;
+      border: none;
+      background: var(--teal);
+      color: white;
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 15px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      box-shadow: 0 10px 30px rgba(0,168,181,0.18);
+    }
+
+    .hero-button:hover {
+      background: #00b8c7;
+      transform: translateY(-1px);
+    }
+
+    button {
+      border: none;
+      background: var(--teal);
+      color: white;
+      padding: 18px 24px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #00b8c7;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #62758C;
+      font-size: 12px;
+    }
+
+    .trust {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 60px;
+    }
+
+    .trust-item {
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 920px;
+      margin: 30px auto 0;
+    }
+
+    .features {
+      max-width: 1120px;
+      margin: auto;
+      padding: 90px 32px;
+    }
+
+    .section-label {
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--mint);
+      font-size: 12px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    .section-title {
+      text-align: center;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 58px;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-bottom: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 30px;
+      transition: 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,168,181,0.5);
+    }
+
+    .icon {
+      font-size: 24px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .cta {
+      max-width: 760px;
+      margin: auto;
+      padding: 0 32px 120px;
+    }
+
+    .cta-box {
+      padding: 54px 42px;
+      border-radius: 28px;
+      border: 1px solid rgba(0,168,181,0.25);
+      background: linear-gradient(135deg, rgba(0,168,181,0.12), rgba(0,209,167,0.05));
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      margin-bottom: 18px;
+      letter-spacing: -1px;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 32px;
+      max-width: 1120px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media(max-width: 640px) {
+      .form-row {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      nav,
+      footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .hero,
+      .features,
+      .cta {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  </style>
+
+<script async src="https://tally.so/widgets/embed.js"></script>
+</head>
+<body>
+
+<div class="topbar"></div>
+
+<nav>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <div class="logo-text">Map<span>My</span>Role</div>
+  </div>
+  <div class="tag">Early Access • Launching Soon</div>
+</nav>
+
+<section class="hero">
+
+  <div class="badge">
+    Free · No credit card · Early access
+  </div>
+
+  <h1>
+    Is Your Job <em>Safe</em><br>
+    From AI?
+  </h1>
+
+  <p class="subhead">
+    MapMyRole helps you understand how your specific job may be impacted as AI rapidly changes the job market.
+  </p>
+
+  <div class="form-wrap">
+    <div class="form-row">
+      <button class="hero-button" data-tally-open="VLoR2j" data-tally-emoji-text="👋" data-tally-emoji-animation="wave">Get Early Access →</button>
+    </div>
+
+    <div class="note">
+      Free early access • Takes less than 2 minutes
+    </div>
+  </div>
+
+  <div class="trust">
+    <div class="trust-item">⚡ Takes 2 minutes</div>
+    <div class="trust-item">🎯 Personalized insights</div>
+    <div class="trust-item">🔒 Private & personal</div>
+    <div class="trust-item">🌍 Built for professionals</div>
+  </div>
+
+</section>
+
+<div class="divider"></div>
+
+<section class="features">
+
+  <div class="section-label">What You'll Get</div>
+
+  <div class="section-title">
+    Find out if your job is becoming vulnerable before it becomes obvious.
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">📉</div>
+      <h3>Your Job Risk Report</h3>
+      <p>
+        Get a personalized analysis showing how vulnerable your specific job is as AI rapidly reshapes the market.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">⏳</div>
+      <h3>A Timeline, Not A Guess</h3>
+      <p>
+        See when major changes are likely to hit your profession so you can act before most people do.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🧭</div>
+      <h3>Your Best Next Moves</h3>
+      <p>
+        Get personalized paths forward built around YOUR current skills, experience, strengths, and the opportunities you realistically have the highest chance of succeeding in.
+      </p>
+    </div>
+
+    
+
+  </div>
+</section>
+
+<section class="cta">
+  <div class="cta-box">
+
+    <h2>The shift is already happening.</h2>
+
+    <p>
+      The professionals who understand what's changing early are the ones most likely to stay relevant. Find out how your specific role may be impacted before the market makes it obvious.
+    </p>
+
+    <button data-tally-open="VLoR2j" data-tally-emoji-text="👋" data-tally-emoji-animation="wave" style="background: var(--teal); color:white; padding:18px 24px; font-weight:700; border-radius:14px; border:none; cursor:pointer;">Get Early Access →</button>
+
+  </div>
+</section>
+
+<footer>
+  <div class="logo">
+    <div class="logo-icon"></div>
+    <div class="logo-text">Map<span>My</span>Role</div>
+  </div>
+  <div>© 2026 MapMyRole • mapmyrole.com</div>
+</footer>
+
+</body>
+</html>
